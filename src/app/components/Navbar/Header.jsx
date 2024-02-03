@@ -24,23 +24,11 @@ import { useRouter } from "next/navigation";
 import { FaUserCheck } from "react-icons/fa";
 import { FaUserGear } from "react-icons/fa6";
 import { RiAdminLine } from "react-icons/ri";
-
+import Draw from "../draw/Draw";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const router = useRouter();
-  const menuItems = [
-    "me",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
 
   const handleLoginClick = () => {
     router.push("/login");
@@ -71,13 +59,7 @@ export default function Header() {
         isBordered
         isMenuOpen={isMenuOpen}
         onMenuOpenChange={setIsMenuOpen}
-      >
-        <NavbarContent className="sm:hidden" justify="start">
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          />
-        </NavbarContent>
-
+      ><Draw/>
         <NavbarContent className="sm:hidden pr-3" justify="center">
           <NavbarBrand>
             <p
@@ -178,26 +160,7 @@ export default function Header() {
           </NavbarItem>
         </NavbarContent>
 
-        <NavbarMenu>
-          {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                className="w-full"
-                color={
-                  index === 2
-                    ? "warning"
-                    : index === menuItems.length - 1
-                    ? "danger"
-                    : "purple"
-                }
-                href={item}
-                size="lg"
-              >
-                {item}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </NavbarMenu>
+       
       </Navbar>
     </>
   );
