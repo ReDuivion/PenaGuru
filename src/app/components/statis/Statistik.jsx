@@ -40,6 +40,7 @@ export default function Statistik() {
     <>
    <div className="stats shadow m-5">
   {absensi.map((absen, index) => (
+    
     <div className="stat" key={index}>
       <div className="stat-figure text-secondary"></div>
       <div className="stat-title">Jam Masuk</div>
@@ -47,11 +48,9 @@ export default function Statistik() {
 
       <div className="stat-figure text-secondary"></div>
       <div className="stat-title">Jam Keluar</div>
-      <div className="stat-value text-xl">{absen.check_out}</div>
-
-      <div className="stat-figure text-secondary"></div>
-      <div className="stat-desc">Monday, January 10, 2024</div>
+      <div className="stat-value text-xl ">{absen.check_out}</div>
     </div>
+    
   ))}
 </div>
 

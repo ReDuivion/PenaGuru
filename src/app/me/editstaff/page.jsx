@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../config/supabase';
 import { useRouter } from 'next/navigation';
-
+import {Button} from "@nextui-org/react";
+import { GoX } from "react-icons/go";
 export default function EditAdmin() {
   const [userEmail, setUserEmail] = useState(null);
   const [userData, setUserData] = useState({
@@ -172,12 +173,18 @@ export default function EditAdmin() {
   };
 
   return (
-    <div>
+    <div className="card w-96 h-auto  shadow-xl mx-auto mt-8 bg-slate-200">
+      <h1 className='text-2xl text-center m-4'>Edit Profile</h1>
+      <div class="avatar">
+  <div class="w-24 rounded-full items-center justify-center text-center mx-auto">
+    <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+  </div>  
+</div>
+<div className='text-center m-4'>
       <h1>{userEmail}</h1>
-      <h1>Edit Profile</h1>
       <form onSubmit={handleFormSubmit}>
-        <label>
-          Nama User:
+        <label><p className='text-lg'>
+          Nama User:</p>
           <input
             type="text"
             name="nama_user"
@@ -186,8 +193,8 @@ export default function EditAdmin() {
           />
         </label>
         <br />
-        <label>
-          Jenis User:
+        <label><p className='text-lg'>
+          Jenis User:</p>
           <input
             type="text"
             name="jenis_user"
@@ -197,8 +204,17 @@ export default function EditAdmin() {
         </label>
         <br />
         {/* Add more input fields here... */}
-        <button type="submit">Simpan Perubahan</button>
+        <div className="flex gap-4 items-center justify-center m-4">
+        <Button
+                color="danger"
+                variant="solid"
+                type="submit"
+              >
+                Simpan perubahan
+              </Button> 
+      </div>
       </form>
+      </div>
     </div>
   );
 }
