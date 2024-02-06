@@ -56,7 +56,7 @@ export default function EditAdmin() {
             'Email sudah ada di tabel "admins" atau "profiles", redirect ke /editstaff atau /edit'
           );
           // Redirect ke halaman yang sesuai
-          router.push(existingStaffData ? "/editstaff" : "/edit");
+          router.push(existingStaffData ? "/editstaff" : "/me/edit");
           return;
         }
 

@@ -45,7 +45,7 @@ import {
             const { data, error } = await supabase
               .from("profiles")
               .select("*")
-              .eq("email", user.email.email)
+              .eq("email", user.email)
               .single();
     
             if (error) {
@@ -85,6 +85,9 @@ import {
       };
       const handleSign=()=>{
         router.push("/register")
+      };
+      const handleStatis=()=>{
+        router.push("/me/statistik")
       }
 
     return (
@@ -98,7 +101,7 @@ import {
                 <NavbarContent className=" pr-3" justify="center">
           <NavbarBrand>
             <p
-              className="font-bold text-purple-500 cursor-pointer text-2xl"
+              className="font-bold text-blue-500 cursor-pointer text-2xl"
               onClick={handleHom}
             >
               PenaGuru
@@ -107,13 +110,15 @@ import {
 <GoX size='1.5em' className='cursor-pointer sm:block md:block lg:hidden xl:hidden'  onClick={onClose}/>
         </NavbarContent></DrawerHeader >
             <DrawerBody className='bg-slate-200 '>
-              <h1>{userData.email}</h1>
-              <p className='cursor-pointer font-bold text-lg mt-2' onClick={handleMe}>Profile</p>
-              <p className='cursor-pointer font-bold text-lg mt-2' onClick={handleLg}>Login</p>
-              <p className='cursor-pointer font-bold text-lg mt-2' onClick={handleSign}>Sign</p>
+              <p className='cursor-pointer font-semibold text-lg mt-2' onClick={handleMe}>Profile</p>
+              <p className='cursor-pointer font-semibold text-lg mt-2' onClick={handleLg}>Login</p>
+              <p className='cursor-pointer font-semibold text-lg mt-2' onClick={handleSign}>Sign</p>
+              <p className='cursor-pointer font-semibold text-lg mt-2' onClick={handleStatis}>Statistik</p>
 
-              <p className='mt-64 text-lg font-bold'>admin@PenaGuru</p>
-              <p className='text-lg font-bold'>123.456.789</p>
+
+
+              <p className='mt-60 text-lg font-bold'>{userData.email}</p>
+              <p className='text-lg font-semibold'>123.456.789</p>
             </DrawerBody>
             <DrawerFooter className='bg-slate-200'>
             <TfiWorld onClick={handleWeb} size="1.5em" className='cursor-pointer'/>
