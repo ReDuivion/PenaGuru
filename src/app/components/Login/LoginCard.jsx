@@ -53,7 +53,7 @@ const LoginCard = () => {
           duration: 5000,
           isClosable: true,
         });
-        router.push("/admindb");
+      
       }
     } catch (error) {
       toast({

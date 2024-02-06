@@ -19,7 +19,7 @@ import {
     FiMenu,
   } from "react-icons/fi";
   import { GoX } from "react-icons/go";
-  import { useState } from 'react';
+  import { useState, useEffect } from 'react';
   import { 
     TiSocialInstagram,
     TiSocialYoutube,
@@ -27,10 +27,42 @@ import {
   } from "react-icons/ti";
   import { TfiWorld } from "react-icons/tfi";
   import { useRouter } from "next/navigation";
+  import {supabase} from "../../config/supabase"
   export default function Draw() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [placement, setPlacement] = useState('left')
     const router = useRouter();
+    const [email,setEmail]=useState(null)
+    const [userData, setUserData] = useState({
+      email: "",
+      nama_user: "",
+      })
+    useEffect(() => {
+      async function ambilData() {
+        try {
+          const { data: { user } } = await supabase.auth.getUser();
+          if (user) {
+            const { data, error } = await supabase
+              .from("profiles")
+              .select("*")
+              .eq("email", user.email.email)
+              .single();
+    
+            if (error) {
+              console.error(error.message);
+            } else {
+              setEmail(data.email);
+              setUserData(data);
+            }
+          } else {
+            console.error("User data not found");
+          }
+        } catch (error) {
+          console.error(error.message);
+        }
+      }
+      ambilData();
+    }, []);
       const handleHom = ()=>{
         router.push("/")
       };
@@ -46,7 +78,15 @@ import {
       const handleIg = ()=>{
         router.push("#")
       };
-  
+      const handleMe = ()=>{
+        router.push("/me")
+      };const handleLg =()=>{
+        router.push("/login")
+      };
+      const handleSign=()=>{
+        router.push("/register")
+      }
+
     return (
       <>
         
@@ -54,7 +94,7 @@ import {
         <Drawer placement={placement} onClose={onClose} isOpen={isOpen} >
           <DrawerOverlay />
           <DrawerContent>
-            <DrawerHeader borderBottomWidth='1px bg-black' className='bg-slate-300'>
+            <DrawerHeader borderBottomWidth='1px bg-black' className='bg-slate-200' >
                 <NavbarContent className=" pr-3" justify="center">
           <NavbarBrand>
             <p
@@ -66,23 +106,16 @@ import {
           </NavbarBrand>
 <GoX size='1.5em' className='cursor-pointer sm:block md:block lg:hidden xl:hidden'  onClick={onClose}/>
         </NavbarContent></DrawerHeader >
-            <DrawerBody className='bg-slate-300'>
-              <p className='cursor-pointer'>Profile</p>
-              <p className='cursor-pointer'>Dashboard</p>
-              <p className='cursor-pointer'>Login</p>
-              <p className='cursor-pointer'>Sign</p>
-             <br />
-             <br />
-             <br />
-             <br />
-             <br />
-             <br />
-             <br />
-             <br />
-              <p>admin@PenaGuru</p>
-              <p>123.456.789</p>
+            <DrawerBody className='bg-slate-200 '>
+              <h1>{userData.email}</h1>
+              <p className='cursor-pointer font-bold text-lg mt-2' onClick={handleMe}>Profile</p>
+              <p className='cursor-pointer font-bold text-lg mt-2' onClick={handleLg}>Login</p>
+              <p className='cursor-pointer font-bold text-lg mt-2' onClick={handleSign}>Sign</p>
+
+              <p className='mt-64 text-lg font-bold'>admin@PenaGuru</p>
+              <p className='text-lg font-bold'>123.456.789</p>
             </DrawerBody>
-            <DrawerFooter className='bg-slate-300'>
+            <DrawerFooter className='bg-slate-200'>
             <TfiWorld onClick={handleWeb} size="1.5em" className='cursor-pointer'/>
             <TiSocialInstagram onClick={handleIg} size="1.5em" className='cursor-pointer'/>
     <TiSocialYoutube onClick={handleYt} size="1.5em" className='cursor-pointer'/>

@@ -1,9 +1,12 @@
-import React from 'react'
 import Statistik from '@/app/components/statis/Statistik'
-export default function statistik() {
+import React from 'react'
+
+export default function page() {
   return (
     <>
-    <Statistik/>
+    <div>
+      <Statistik/>
+    </div>
     </>
   )
 }
